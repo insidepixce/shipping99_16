@@ -30,12 +30,7 @@ def save_straGram():
     rating = (request.form.get("ratingSelect"))
     image_file = request.files.get("imageUploadInput")
 
-
-
-@application.route('/')
-def index():
-    return render_template('index.html')
-
+def back():
     # 이미지 파일의 이름을 MongoDB에 저장합니다.
     image_filename = image_file.filename
 
@@ -56,6 +51,11 @@ def index():
     collection.insert_man(straGram_data)
 
     return str(straGram_data)
+
+
+@application.route('/')
+def index():
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
