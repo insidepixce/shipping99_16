@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // MongoDB 연결 설정
-mongoose.connect('mongodb://localhost/myapp', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://sparta:test@sparta.rqx1qlk.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB에 연결되었습니다.');
   })
@@ -65,5 +65,5 @@ app.post('/login', async (req, res) => {
 
 // 서버 시작
 app.listen(8001, () => {
-  console.log('서버가 포트 8000에서 실행 중입니다.');
+  console.log('서버가 포트 8001에서 실행 중입니다.');
 });
