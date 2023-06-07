@@ -12,17 +12,50 @@
 # 안녕하십니까~~
 # =======
 # 하이
+from bson import Binary
 
 import requests
-
+r = requests.get('http://127.0.0.1:5500/shipping99_16/templates/index.html')
+rjson = r.json()
 
 from flask import Flask, render_template
 application = Flask(__name__)
 
 
+@app.route("/save_movie", methods=["POST"])
+def save_straGram():
+    movie_title = request.form.get("movieTitleInput")
+    movie_description = request.form.get("movieDescriptionTextarea")
+    my_comment = request.form.get("myCommentTextarea")
+    rating = (request.form.get("ratingSelect"))
+    image_file = request.files.get("imageUploadInput")
+
+
+
 @application.route('/')
 def index():
     return render_template('index.html')
+
+    # 이미지 파일의 이름을 MongoDB에 저장합니다.
+    image_filename = image_file.filename
+
+    # 이미지를 열고 바이너리로 변환합니다.
+    image = Image.open(image_file)
+    image_binary = io.BytesIO()
+    image.save(image_binary, format='JPEG')
+    image_binary = image_binary.getvalue()
+
+    # 데이터를 데이터베이스에 삽입합니다.
+    straGram_data = {
+        "": movie_title,
+        "": movie_description,
+        "": my_comment,
+        "": rating,
+        "image": Binary(image_binary),  # 이미지 바이너리 데이터 저장
+    }
+    collection.insert_man(straGram_data)
+
+    return str(straGram_data)
 
 
 if __name__ == '__main__':
