@@ -64,6 +64,6 @@ app.post('/login', async (req, res) => {
 });
 
 // 서버 시작
-app.listen(3000, () => {
-  console.log('서버가 포트 3000에서 실행 중입니다.');
+app.listen(8001, () => {
+  console.log('서버가 포트 8000에서 실행 중입니다.');
 });
