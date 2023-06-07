@@ -7,7 +7,7 @@ ex) 박교담/2023.06.06/application.py/getrequests 함수/코드 수정/코드�
 스테이징 시 주의사항 : git add . 하지 말아주세요
 스테이징 시 수정할 파일만 뽑아서 스테이징해주세요
 커밋 메세지 통일 꼭 지켜주세요
-안녕하세요 
+하이
  """
 
 from flask import Flask, render_template
