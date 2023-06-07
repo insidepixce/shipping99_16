@@ -1,3 +1,4 @@
+HEAD
 // 필요한 모듈 및 패키지 가져오기
 const express = require('express');
 const mongoose = require('mongoose');
@@ -61,9 +62,4 @@ app.post('/login', async (req, res) => {
     console.error('로그인 오류:', error);
     res.status(500).json({ message: '서버 오류로 로그인을 완료할 수 없습니다.' });
   }
-});
-
-// 서버 시작
-app.listen(3000, () => {
-  console.log('서버가 포트 3000에서 실행 중입니다.');
 });
