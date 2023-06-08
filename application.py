@@ -16,46 +16,25 @@
 
 
 
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request,send_from_directory
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import os
 import pymongo
 from bson.binary import Binary
+import base64
 
-app= Flask(__name__)
+app= Flask(__name__,static_folder='client/build')
 CORS(app)
 
+@app.route('/',defaults={'path':''})
+@app.route('/<path:path>')
 
-@app.route("/save_movie", methods=["POST"])
-def save_straGram():
-    movie_title = request.form.get("movieTitleInput")
-    movie_description = request.form.get("movieDescriptionTextarea")
-    my_comment = request.form.get("myCommentTextarea")
-    rating = (request.form.get("ratingSelect"))
-    image_file = request.files.get("imageUploadInput")
-
-def back():
-    # 이미지 파일의 이름을 MongoDB에 저장합니다.
-    image_filename = image_file.filename
-
-    # 이미지를 열고 바이너리로 변환합니다.
-    image = Image.open(image_file)
-    image_binary = io.BytesIO()
-    image.save(image_binary, format='JPEG')
-    image_binary = image_binary.getvalue()
-
-    # 데이터를 데이터베이스에 삽입합니다.
-    straGram_data = {
-        "": movie_title,
-        "": movie_description,
-        "": my_comment,
-        "": rating,
-        "image": Binary(image_binary),  # 이미지 바이너리 데이터 저장
-    }
-    collection.insert_man(straGram_data)
-
-    return str(straGram_data)
+def serve(path):
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/')
 def index():
@@ -63,63 +42,40 @@ def index():
 
 @app.route('/api/feeds',methods=['GET'])
 def get_feed_data() :
-    data = [
-        {
-            "id" : 0,
-            "title" : '먹스타그램',
-            "image_url" : "https://pelicana.co.kr/resources/images/menu/best_menu02_200824.jpg",
-            "content" : "맛있으면 0칼로리"
-        },
-        {
-            "id" : 1,
-            "title" : '먹스타그램2',
-            "image_url" : "https://cdn.paris.spl.li/wp-content/uploads/535370-%ED%8C%8C%EC%86%A1%EC%86%A1%EC%A0%95%ED%86%B5%EC%A7%9C%EC%9E%A5%EB%A9%B4_%EC%8D%B8%EB%84%A4%EC%9D%BC2.png",
-            "content" : "다이어트는 내일부터"
-        },
-        {
-            "id" : 0,
-            "title" : '먹스타그램3',
-            "image_url" : "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/02/a0002274/img/basic/a0002274_main.jpg?20200626102550&q=80",
-            "content" : "돈까스 푸드파이터"
-        },
-        {
-            "id" : 0,
-            "title" : '먹스타그램4',
-            "image_url" : "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/00/a0000370/img/basic/a0000370_main.jpg?20201002142956",
-            "content" : "스시 푸드파이터"
-        },
-        {
-            "id" : 0,
-            "title" : '먹스타그램5',
-            "image_url" : "https://mblogthumb-phinf.pstatic.net/MjAxODA3MTlfNzUg/MDAxNTMxOTcyODE3NjE5.PSHFjtUG3GoV9sAT3qrGpFgLSLpXbdHqIz0m0RJmMdIg.5CqfD2BeaxQzB1AuPJPX11KOmYGG3MhNY0DyxWmrezog.JPEG.kmedi6210/20486123.jpg?type=w800",
-            "content" : "곱창 푸드파이터"
-        },
-        
-    ]
-    return jsonify(data)
+        client = pymongo.MongoClient('mongodb+srv://Haru:yalhue01@cluster0.sx50ttz.mongodb.net/?retryWrites=true&w=majority')
+        db = client['hangsta']
+        collection = db['feeds']
+
+        return jsonify(list(collection.find({},{'_id' : 0})))
+
 
 @app.route('/api/images', methods=['POST'])
 def upload_image():
-    if 'files[]' in request.files:
-        file = request.files['files[]']
+
+    if 'image_url' in request.files:
+        file = request.files['image_url']
+
         if file:
             filename = secure_filename(file.filename)
-            file_path = os.path.join('./images', filename)
 
-            # MongoDB connection 해주시면 됩니다.
-            client = pymongo.MongoClient('mongoDB 주소')
-            db = client['DB이름']
-            collection = db['Collection이름']
+            client = pymongo.MongoClient('mongodb+srv://Haru:yalhue01@cluster0.sx50ttz.mongodb.net/?retryWrites=true&w=majority')
+            db = client['hangsta']
+            collection = db['feeds']
 
-            # 파일 이진 변환
-            with open(file_path, 'rb') as f:
-                binary_data = Binary(f.read())
+            img_data = file.read()
+            img_base64 = base64.b64encode(img_data).decode('utf-8')
 
-            # 몽고디비에 저장
-            collection.insert_one({'image': binary_data, 'filename': filename})
+            collection.insert_one({
+                'title': request.form['title'], 
+                'content': request.form['content'], 
+                'image': img_base64, 
+                'filename': filename
+            })
             return 'File successfully saved'
     else:
         return 'No file part in the request', 400
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8001, debug=True)
+
+# debug=True 배포시 꼭빼주세요

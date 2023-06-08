@@ -9,7 +9,7 @@ export const Navbar = () => {
         <p className="pl-2">Hanghae-stargram</p>
       </Link>
 
-      <div className="flex">
+      <div className="flex items-center place-content-between">
         <Link to="/upload">
           <p className="px-2 text-base">POST</p>
         </Link>
