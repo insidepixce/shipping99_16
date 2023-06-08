@@ -42,7 +42,7 @@ def index():
 
 @app.route('/api/feeds',methods=['GET'])
 def get_feed_data() :
-        client = pymongo.MongoClient('mongodb+srv://Haru:yalhue01@cluster0.sx50ttz.mongodb.net/?retryWrites=true&w=majority')
+        client = pymongo.MongoClient('mongodb+srv://shipping9916:test@shipping99.anarzzd.mongodb.net/?retryWrites=true&w=majority')
         db = client['hangsta']
         collection = db['feeds']
 
@@ -58,7 +58,7 @@ def upload_image():
         if file:
             filename = secure_filename(file.filename)
 
-            client = pymongo.MongoClient('mongodb+srv://Haru:yalhue01@cluster0.sx50ttz.mongodb.net/?retryWrites=true&w=majority')
+            client = pymongo.MongoClient('mongodb+srv://shipping9916:test@shipping99.anarzzd.mongodb.net/?retryWrites=true&w=majority')
             db = client['hangsta']
             collection = db['feeds']
 
