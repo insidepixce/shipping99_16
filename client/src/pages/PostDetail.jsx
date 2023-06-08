@@ -2,15 +2,14 @@ import { useLocation } from "react-router-dom";
 
 export const PostDetail = () => {
   const {
-    state: { post },
+    state: { imageSrc },
   } = useLocation();
-  const {} = post;
 
   return (
     <section className="flex flex-col lg:flex-row">
       <article className="basis-4/6">
         <img
-          src="/image/kwoo2.jpeg"
+          src={imageSrc}
           alt="kwoo"
           className="w-full h-auto max-w-640 p-4"
         />
