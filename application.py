@@ -13,9 +13,6 @@
 # =======
 # 하이
 
-
-
-
 from flask import Flask, render_template, jsonify
 from flask_cors import CORS
 app= Flask(__name__)
@@ -77,6 +74,24 @@ def get_feed_data() :
             "title" : '먹스타그램2',
             "image_url" : "https://cdn.paris.spl.li/wp-content/uploads/535370-%ED%8C%8C%EC%86%A1%EC%86%A1%EC%A0%95%ED%86%B5%EC%A7%9C%EC%9E%A5%EB%A9%B4_%EC%8D%B8%EB%84%A4%EC%9D%BC2.png",
             "content" : "다이어트는 내일부터"
+        },
+        {
+            "id" : 0,
+            "title" : '먹스타그램3',
+            "image_url" : "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/02/a0002274/img/basic/a0002274_main.jpg?20200626102550&q=80",
+            "content" : "돈까스 푸드파이터"
+        },
+        {
+            "id" : 0,
+            "title" : '먹스타그램4',
+            "image_url" : "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/00/a0000370/img/basic/a0000370_main.jpg?20201002142956",
+            "content" : "스시 푸드파이터"
+        },
+        {
+            "id" : 0,
+            "title" : '먹스타그램5',
+            "image_url" : "https://mblogthumb-phinf.pstatic.net/MjAxODA3MTlfNzUg/MDAxNTMxOTcyODE3NjE5.PSHFjtUG3GoV9sAT3qrGpFgLSLpXbdHqIz0m0RJmMdIg.5CqfD2BeaxQzB1AuPJPX11KOmYGG3MhNY0DyxWmrezog.JPEG.kmedi6210/20486123.jpg?type=w800",
+            "content" : "곱창 푸드파이터"
         },
         
     ]
