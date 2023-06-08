@@ -18,14 +18,14 @@
 
 from flask import Flask, render_template, jsonify, request,send_from_directory
 from werkzeug.utils import secure_filename
-from flask_cors import CORS
+
 import os
 import pymongo
 from bson.binary import Binary
 import base64
 
 app= Flask(__name__,static_folder='client/build')
-CORS(app)
+
 
 @app.route('/',defaults={'path':''})
 @app.route('/<path:path>')
