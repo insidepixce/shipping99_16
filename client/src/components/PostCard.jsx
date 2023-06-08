@@ -4,7 +4,9 @@ export const PostCard = ({ postId, imageSrc, title, content }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    return navigate(`/detail/${postId}`, { state: { imageSrc } });
+    return navigate(`/detail/${postId}`, {
+      state: { imageSrc, title, content },
+    });
   };
   return (
     <li

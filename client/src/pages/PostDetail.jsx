@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 
 export const PostDetail = () => {
   const {
-    state: { imageSrc },
+    state: { imageSrc, title, content },
   } = useLocation();
 
   return (
@@ -15,8 +15,8 @@ export const PostDetail = () => {
         />
       </article>
       <div className="p-8 ">
-        <h2 className="text-xl font-bold">title이 들어갑니다</h2>
-        <pre className="whitespace-pre-wrap">description이 들어갑니다</pre>
+        <h2 className="text-xl font-bold">{title}</h2>
+        <pre className="whitespace-pre-wrap">{content}</pre>
       </div>
     </section>
   );

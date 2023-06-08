@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { PostCard } from "../components/PostCard";
-import axios from "axios";
 
 export const Posts = () => {
   const [feeds, setFeeds] = useState();
