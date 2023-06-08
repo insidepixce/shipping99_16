@@ -1,7 +1,7 @@
 import React from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-const SignUp = () => {
+export const SignUp = () => {
   const {
     register,
     handleSubmit,
@@ -16,52 +16,68 @@ const SignUp = () => {
   console.log(watch());
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
-        <div>
-          <label className="text-white">Email</label>
-          <input
-            {...register("email", { required: "Email is required" })}
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-          />
-          {errors.email && (
-            <p className="text-red-500 text-xs italic">
-              {errors.email.message}
-            </p>
-          )}
-        </div>
-        <div>
-          <label className="text-white">Password</label>
-          <input
-            type="password"
-            {...register("password", { required: "Password is required" })}
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-          />
-          {errors.password && (
-            <p className="text-red-500 text-xs italic">
-              {errors.password.message}
-            </p>
-          )}
-        </div>
-        <div>
-          <label className="text-white">Nickname</label>
-          <input
-            {...register("nickname", { required: "Nickname is required" })}
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-          />
-          {errors.nickname && (
-            <p className="text-red-500 text-xs italic">
-              {errors.nickname.message}
-            </p>
-          )}
-        </div>
-        <div>
-          <button
-            type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Submit
-          </button>
+    <div className="h-screen flex items-center justify-center">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xs">
+        <div className="shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div className="mb-4">
+            <label className="block text-sm font-bold mb-2" htmlFor="email">
+              Email
+            </label>
+            <input
+              {...register("email", { required: true })}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="email"
+              type="email"
+              placeholder="Email"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-xs italic">
+                Please fill in your email.
+              </p>
+            )}
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-bold mb-2" htmlFor="password">
+              Password
+            </label>
+            <input
+              {...register("password", { required: true })}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              type="password"
+              placeholder="******************"
+            />
+            {errors.password && (
+              <p className="text-red-500 text-xs italic">
+                Please fill in your password.
+              </p>
+            )}
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-bold mb-2" htmlFor="nickname">
+              Nickname
+            </label>
+            <input
+              {...register("nickname", { required: true })}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="nickname"
+              type="text"
+              placeholder="Nickname"
+            />
+            {errors.nickname && (
+              <p className="text-red-500 text-xs italic">
+                Please fill in your nickname.
+              </p>
+            )}
+          </div>
+          <div className="flex items-center justify-between">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Sign Up
+            </button>
+          </div>
         </div>
       </form>
     </div>
