@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "tailwindcss/tailwind.css";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export const Upload = () => {
   const {
@@ -12,6 +13,7 @@ export const Upload = () => {
   } = useForm();
   const [selectedImage, setSelectedImage] = useState();
   const watchedImage = watch("image_url");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (watchedImage?.length > 0) {
@@ -39,7 +41,8 @@ export const Upload = () => {
       },
     })
       .then((response) => {
-        console.log(response.data);
+        alert("upload 완료!");
+        navigate(`/`, {});
       })
       .catch((error) => {
         console.error(error);
