@@ -78,4 +78,4 @@ def upload_image():
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8001, debug=True)
 
-# debug=True 배포시 꼭빼주세요
+# debug=True 배포시 꼭빼주세요 !!
