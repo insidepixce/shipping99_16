@@ -63,7 +63,24 @@ def get_example_data() :
 @app.route('/')
 def index():
     return render_template('index.html')
-
+@app.route('/api/feeds',methods=['GET'])
+def get_feed_data() :
+    data = [
+        {
+            "id" : 0,
+            "title" : '먹스타그램',
+            "image_url" : "https://pelicana.co.kr/resources/images/menu/best_menu02_200824.jpg",
+            "content" : "맛있으면 0칼로리"
+        },
+        {
+            "id" : 1,
+            "title" : '먹스타그램2',
+            "image_url" : "https://cdn.paris.spl.li/wp-content/uploads/535370-%ED%8C%8C%EC%86%A1%EC%86%A1%EC%A0%95%ED%86%B5%EC%A7%9C%EC%9E%A5%EB%A9%B4_%EC%8D%B8%EB%84%A4%EC%9D%BC2.png",
+            "content" : "다이어트는 내일부터"
+        },
+        
+    ]
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8001, debug=True)
