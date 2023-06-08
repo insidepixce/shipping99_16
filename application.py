@@ -13,7 +13,10 @@
 # =======
 # 하이
 
-from flask import Flask, render_template, jsonify
+
+
+
+from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 app= Flask(__name__)
 CORS(app)
@@ -49,17 +52,10 @@ def back():
 
     return str(straGram_data)
 
-
-@app.route('/api',methods=['GET'])
-def get_example_data() :
-    data = {
-        "hi" : 123
-    }
-    return jsonify(data)
-
 @app.route('/')
 def index():
     return render_template('index.html')
+
 @app.route('/api/feeds',methods=['GET'])
 def get_feed_data() :
     data = [
@@ -96,6 +92,21 @@ def get_feed_data() :
         
     ]
     return jsonify(data)
+
+@app.route('/api/images', methods=['POST'])
+def upload_image():
+    if 'image' not in request.files:
+        return 'No image file provided', 400
+    
+    image = request.files['image']
+    # 저장할 경로와 파일명을 설정합니다.
+    save_path = './images' + image.filename
+
+    try:
+        image.save(save_path)
+        return 'Image uploaded successfully'
+    except Exception as e:
+        return 'Error saving image: ' + str(e), 500
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8001, debug=True)

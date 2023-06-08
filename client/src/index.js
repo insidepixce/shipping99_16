@@ -8,6 +8,7 @@ import { Posts } from "./pages/Posts";
 import { PostDetail } from "./pages/PostDetail";
 import { Upload } from "./pages/Upload";
 import { Login } from "./pages/Login";
+import SignUpPage from "./pages/SignUpPage";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { path: "/detail/:postId", element: <PostDetail /> },
       { path: "/upload", element: <Upload /> },
       { path: "/login", element: <Login /> },
+      { path: "/signup", element: <SignUpPage /> },
     ],
   },
 ]);
