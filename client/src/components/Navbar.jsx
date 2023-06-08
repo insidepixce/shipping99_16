@@ -16,6 +16,9 @@ export const Navbar = () => {
         <Link to="/login">
           <p className="px-2 text-base">Login</p>
         </Link>
+        <Link to="/signup">
+          <p className="px-2 text-base">Sign Up</p>
+        </Link>
       </div>
     </header>
   );

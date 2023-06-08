@@ -1,55 +1,64 @@
-import { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import "tailwindcss/tailwind.css"; // TailwindCSS를 import 합니다.
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleLogin = () => {
-    if (!validateEmail(email)) {
-      alert("올바른 이메일 형식이 아닙니다.");
-      return;
-    }
-    // 올바른 이메일 형식일 경우
-    // POST method 실행 및 로그인 처리
-    // 이 부분은 원하는 로직에 맞게 작성해주셔야 합니다.
-    console.log("Login button clicked");
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
-
-  const validateEmail = (email) => {
-    // 이메일 유효성 검사 로직을 구현해야 합니다.
-    // 간단한 형식 확인 예시:
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  const onSubmit = (data) => console.log(data);
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="border rounded-md p-8">
-        <input
-          className="p-3 m-3 bg-white text-black"
-          type="text"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          className="p-3 m-3 bg-white text-black"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <div className="flex justify-center">
-          <button
-            className="mt-3 p-3 rounded-md bg-gray-500 text-white"
-            onClick={handleLogin}
-          >
-            Login
-          </button>
+    <div className="h-screen flex items-center justify-center">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xs">
+        <div className=" shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div className="mb-4">
+            <label className="block text-sm font-bold mb-2" htmlFor="email">
+              Email
+            </label>
+            <input
+              {...register("email", { required: true })}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="email"
+              type="email"
+              placeholder="Email"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-xs italic">
+                Please fill in your email.
+              </p>
+            )}
+          </div>
+          <div className="mb-6">
+            <label className="block  text-sm font-bold mb-2" htmlFor="password">
+              Password
+            </label>
+            <input
+              {...register("password", { required: true })}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              type="password"
+              placeholder="******************"
+            />
+            {errors.password && (
+              <p className="text-red-500 text-xs italic">
+                Please fill in your password.
+              </p>
+            )}
+          </div>
+          <div className="flex items-center justify-between">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Log In
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

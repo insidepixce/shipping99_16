@@ -11,13 +11,18 @@
 
 # 안녕하십니까~~
 # =======
-# 하이
+# 하이!!
 
 
 
 
 from flask import Flask, render_template, jsonify, request
+from werkzeug.utils import secure_filename
 from flask_cors import CORS
+import os
+import pymongo
+from bson.binary import Binary
+
 app= Flask(__name__)
 CORS(app)
 
@@ -95,18 +100,26 @@ def get_feed_data() :
 
 @app.route('/api/images', methods=['POST'])
 def upload_image():
-    if 'image' not in request.files:
-        return 'No image file provided', 400
-    
-    image = request.files['image']
-    # 저장할 경로와 파일명을 설정합니다.
-    save_path = './images' + image.filename
+    if 'files[]' in request.files:
+        file = request.files['files[]']
+        if file:
+            filename = secure_filename(file.filename)
+            file_path = os.path.join('./images', filename)
 
-    try:
-        image.save(save_path)
-        return 'Image uploaded successfully'
-    except Exception as e:
-        return 'Error saving image: ' + str(e), 500
+            # MongoDB connection 해주시면 됩니다.
+            client = pymongo.MongoClient('mongoDB 주소')
+            db = client['DB이름']
+            collection = db['Collection이름']
+
+            # 파일 이진 변환
+            with open(file_path, 'rb') as f:
+                binary_data = Binary(f.read())
+
+            # 몽고디비에 저장
+            collection.insert_one({'image': binary_data, 'filename': filename})
+            return 'File successfully saved'
+    else:
+        return 'No file part in the request', 400
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8001, debug=True)
