@@ -14,9 +14,11 @@ export const PostDetail = () => {
           className="w-full h-auto max-w-640 p-4"
         />
       </article>
-      <div className="p-8 ">
-        <h2 className="text-xl font-bold">{title}</h2>
-        <pre className="whitespace-pre-wrap">{content}</pre>
+      <div className="px-8 basis-2/6">
+        <h2 className="text-xl font-bold pb-2 border-b border-gray-100">
+          {title}
+        </h2>
+        <pre className="whitespace-pre-wrap pt-2">{content}</pre>
       </div>
     </section>
   );
